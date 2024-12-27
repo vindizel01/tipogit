@@ -1,0 +1,26 @@
+Toyota, Corolla, Camry, RAV4, Highlander, Yaris, Prius, Tacoma, Tundra, Land Cruiser, Supra
+Honda, Civic, Accord, CR-V, Pilot, Odyssey, Fit, Insight, Ridgeline, HR-V, Passport, dio, rio
+Hyundai, Sonata, Elantra, Tucson, Santa Fe, Palisade, Kona, Venue, Accent, Veloster, Genesis
+Kia, Optima, Forte, Sportage, Sorento, Telluride, Seltos, Soul, Rio, Stinger, Carnival
+Nissan, Altima, Sentra, Rogue, Pathfinder, Maxima, Murano, Versa, Frontier, Titan, Armada, sciline, GTR
+Volkswagen, Golf, Jetta, Passat, Tiguan, Atlas, Beetle, Touareg, Polo, Arteon, ID.4
+Ford, Focus, Fusion, Escape, Explorer, F-150, Mustang, Bronco, Expedition, Edge, Ranger
+Chevrolet, Silverado, Camaro, Corvette, Equinox, Traverse, Malibu, Tahoe, Suburban, Blazer, Spark
+BMW, 3-я серия, 5-я серия, X3, X5, X7, M3, M4, i4, iX3, iX, competihion
+Mercedes, C-Class, E-Class, S-Class, GLE, GLS, G-Class, AMG C63, AMG E63, AMG G63, EQS
+Audi, A4, A6, A8, Q5, Q7, Q8, RS 5, RS 6, RS Q8, e-tron
+Mazda, Mazda3, Mazda6, CX-5, CX-9, MX-5 Miata, CX-30, CX-3, 2, 626, RX-8, гибрид
+Subaru, Impreza, Legacy, Outback, Forester, Crosstrek, BRZ, WRX, Ascent, Baja, Tribeca, турбированная
+Lexus, ES, RX, GX, LX, IS, GS, LC, RC, UX, NX
+Porsche, 911, Boxster, Cayman, Panamera, Cayenne, Macan, Taycan, 718, 918 Spyder, 959
+Tesla, Model S, Model 3, Model X, Model Y, Roadster, Cybertruck, Semi, Model 2, электро
+Mitsubishi, Outlander, Eclipse Cross, Lancer Evolution, Mirage, Montero Sport, Pajero, Galant
+Jeep, Wrangler, Cherokee, Grand Cherokee, Compass, Renegade, Gladiator
+Volvo, XC60, XC90, S60, S90, V60, V90, XC40, XC40, внедорожник, миникупер
+Fiat, 500, 500X, 500L, Panda, Tipo, Doblò, Ducato, Punto
+Renault, Clio, Mégane, Espace, Captur, Kadjar, Scenic, Talisman, Koleos
+Skoda, Octavia, Fabia, Superb, Kodiaq, Karoq, Kamiq, Yeti, Scala
+Peugeot, 208, 308, 508, 2008, 3008, 5008
+Mini, Cooper, Countryman
+Lada, 2101, 2103, 2105, 2107, Samara ,110, 111, 2110, 2111, 2112, жигули, 2190
+
