@@ -1,12 +1,12 @@
 import os
 
-from tabulate import *
+from tabulate import tabulate
 
 title_color = ['Цвета']
 data = [['Черный'], ['Белый'], ['Серый'], ['Синий'], ['Красный'], ['Зеленый'], ['Желтый'], ['Розовый'],
         ['Фиолетовый'], ['Оранжевый']]
 table_title = ['Номер', 'Производитель', 'Марка', 'Цвет', 'Тип двигателя', 'Тип коробки передач', 'активность фар',
-               'активность двигателя']
+               'активность двигателя', 'Статус дверей']
 title_dvig = ['Двигатели']
 lst_dvigat = [
     ["Бензиновый"],
@@ -286,11 +286,23 @@ def add_car(file):
         else:
             print('Вы указали некорректный тип!')
 
+    while True:
+        print('')
+        action_doors = input("Введите 'ДА', если двери открыты и 'НЕТ', если закрыты: ")
+        if action_doors.lower() == "да":
+            break
+        if action_doors.lower() == "нет":
+            break
+        else:
+            print('Вы указали некорректный тип!')
+
     with open(file, "a", encoding="utf-8") as f:
         f.write(
-            f"{number.lower()},{manufacturer.lower()},{brand.lower()},{color.lower()},{dvigat.lower()},{box_per.lower()},{action_far.lower()},{action_dvigat.lower()}\n")
+            f"{number.lower()},{manufacturer.lower()},{brand.lower()},{color.lower()},{dvigat.lower()},{box_per.lower()},{action_far.lower()},{action_dvigat.lower()}, {action_doors.lower()}\n")
     print("Машина успешно добавлена!")
 
+actions = ['Номер', 'Производитель', 'Марка', 'Цвет', 'Тип двигателя', 'Тип КП', 'Состояние фар', 'Состояние двигателя', 'Состояние дверей', 
+           'Выход в главное меню']
 
 def delete_car(file):
     while True:
@@ -303,8 +315,10 @@ def delete_car(file):
             else:
                 print("Список машин пуст.")
         print('Укажите по какому критерию вы хотите удалять машину|или группу машин: ')
+
         print(
-            'Удаление по номеру-1\nУдаление по производителю-2\nУдаление по марке-3\nУдаление по цвету-4\nУдаление по типу двигателя-5\nУдаление по типу коробки передач-6\nУдаление по вкл\выкл фар-7\nУдаление по вкл\выкл двигателю-8\nВыход в главное меню-9')
+            'Удаление по номеру-1\nУдаление по производителю-2\nУдаление по марке-3\nУдаление по цвету-4\nУдаление по типу двигателя-5\nУдаление по типу коробки передач-6\nУдаление по вкл\выкл фар-7\nУдаление по вкл\выкл двигателю-8\nУдаление по статусу дверей - 9\nВыход в главное меню-10')
+
         del_znach = (input('Введите подходящее число: '))
         if del_znach == '1':
             while True:
@@ -680,7 +694,8 @@ def delete_car(file):
                 if del_numbers_lst != []:
                     print(tabulate(del_numbers_lst, headers=table_title, tablefmt="github"))
                     print(
-                        'Если хотите удалить эти/у машину напишите "удалить", если хотите удалить выборочную машину напишите "выбор",если хотите вернуться к выбору компонентов машины пропишите "отмена"')
+                        'Если хотите удалить эти/у машину напишите "удалить", если хотите удалить выборочную машину '
+                        'напишите "выбор",если хотите вернуться к выбору компонентов машины пропишите "отмена"')
                     v = input('напишите подходящее слово(удалить | выбор | отмена): ').lower()
                     if v == 'удалить':
                         with open(file, "w", encoding="utf-8") as f:
@@ -723,7 +738,64 @@ def delete_car(file):
                     if i != 0:
                         i -= 1
                         break
+
         if del_znach == '9':
+            i = 0
+            while True:
+                del_manufacturer = input('Укажите, открыты ли двери (да|нет) удаляемой машины: ').lower()
+                del_numbers_lst = []
+                for key_1, value_1 in enumerate(lines):
+                    if len(value_1) > 8 and del_manufacturer == value_1[8].strip():
+                        del_numbers_lst.append(value_1)
+                if del_numbers_lst != []:
+                    print(tabulate(del_numbers_lst, headers=table_title, tablefmt="github"))
+                    print(
+                        "Если хотите удалить эти/эту машину, введите 'удалить', если хотите удалить выборочную машину, "
+                        "напишите 'выбор', или введите 'отмена' для выхода.")
+                    v = input('напишите подходящее слово(удалить | выбор | отмена): ').lower()
+                    if v == 'удалить':
+                        with open(file, "w", encoding="utf-8") as f:
+                            for line in lines:
+                                if len(line) <= 8 or line[8].strip() != del_manufacturer:
+                                    f.write(",".join(line) + "\n")
+                        print("Удаление прошло успешно.")
+                        break  # Выход из цикла удаления по номеру
+                    elif v == "выбор":
+                        while True:
+                            a = input('Введите номер удаляемой машины: ')
+                            if proverka_in_numbers_car_delete(del_numbers_lst, a) == True:
+                                with open(file, "w", encoding="utf-8") as f:
+                                    for line in lines:
+                                        if len(line) <= 8 or (line[0] != a or line[8].strip() != del_manufacturer):
+                                            f.write(",".join(line) + "\n")
+                                print("Машина удалена.")
+                                break
+                            else:
+                                print('Некорректный ввод номера машины, попробуйте снова')
+                        break  # Выход из цикла удаления по номеру
+                    elif v == 'отмена':
+                        break  # Выход из цикла удаления по номеру
+                    else:
+                        print('Неверный ввод')
+                else:
+                    print('К сожалению таких машин нет в нашем списке.')
+                    print('Попробуйте ввести новое значение, прописав команду "Повторить".')
+                    print('Также вы можете выйти из удаления машины, прописав "Отмена"')
+                    while True:
+                        commands_in_exit = str(input('Введите подходящую команду(Повторить | Отмена): '))
+                        func_rezult = proverka_сommands(commands_in_exit)
+                        if func_rezult is True:
+                            break
+                        elif func_rezult is None:
+                            print('Неверный ввод')
+                        else:
+                            i += 1
+                            break
+                    if i != 0:
+                        i -= 1
+                        break
+
+        if del_znach == '10':
             break
 
 
@@ -756,7 +828,8 @@ def edit_car_by_number(file_path, car_number):
                     print("4. Тип коробки передач")
                     print("5. Активность фар")
                     print("6. Активность двигателя")
-                    print("7. Завершить редактирование")
+                    print("7. Статус дверей")
+                    print("8. Завершить редактирование")
 
                     choice = input("Введите номер поля: ")
                     if choice == '1':
@@ -779,6 +852,9 @@ def edit_car_by_number(file_path, car_number):
                         new_engine_status = input("Введите новый статус двигателя (оставьте пустым, чтобы не менять): ").lower()
                         parts[7] = new_engine_status if new_engine_status else parts[7]
                     elif choice == '7':
+                        new_doors_status = input("Введите новый статус дверей (оставьте пустым, чтобы не менять): ").lower()
+                        parts[8] = new_doors_status if new_doors_status else parts[8]
+                    elif choice == '8':
                         break
                     else:
                         print("Неверный выбор. Попробуйте снова.")
@@ -1005,7 +1081,7 @@ def redactir_model(manufacturer):
             else:
                 print("Вы некорректно указали команду!")
         else:
-            return [True,brand]
+            return [True, brand]
 def print_car_list(file):
     """Выводит список машин из файла."""
     with open(file, "r", encoding="utf-8") as f:
@@ -1031,7 +1107,7 @@ def print_poisc_car(file):
     while True:
         _lst = []
         print(tabulate(lines, headers=table_title, tablefmt="github"))
-        print("\nВыберите поле для редактирования:")
+        print("\nВыберите поле для поиска:")
         print('1. Производитель')
         print("2. Марка")
         print("3. Цвет")
@@ -1039,7 +1115,8 @@ def print_poisc_car(file):
         print("5. Тип коробки передач")
         print("6. Активность фар")
         print("7. Активность двигателя")
-        print("8. Выйти в главное меню")
+        print("8. Статус дверей")
+        print("9. Выйти в главное меню")
 
         str_count = input('Введите значение по поиску авто: ')
         if str_count.isdigit():
@@ -1183,11 +1260,26 @@ def print_poisc_car(file):
                     else:
                         print(tabulate(_lst, headers=table_title, tablefmt="github"))
                         break
-            elif str_count == '8':  # Выход в главное меню
+            elif str_count == '8':  # Поиск по активности дверей
+                while True:
+                    del_manufacturer = input('Введите статус дверей, открыты ли они? (да/нет): ').lower().strip()
+                    _lst = []  # Очищаем список перед каждым новым поиском
+                    for line in lines:
+                        if len(line) > 8 and line[8].strip().lower() == del_manufacturer:
+                            _lst.append(line)
+                    if not _lst:
+                        print('Таких машин не найдено.')
+                        a = input('Введите другое состояние дверей либо напишите "отмена" для выхода: ').lower()
+                        if a == 'отмена':
+                            break
+                    else:
+                        print(tabulate(_lst, headers=table_title, tablefmt="github"))
+                        break
+            elif str_count == '9':  # Выход в главное меню
                 print("Выход в главное меню")
                 return  # Выход из функции print_poisc_car
             else:
-                print('Некорректный ввод. Пожалуйста, введите число от 1 до 8')
+                print('Некорректный ввод. Пожалуйста, введите число от 1 до 9')
             break
         else:
             print('Некорректный ввод. Пожалуйста, введите число.')
